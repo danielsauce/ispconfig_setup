@@ -16,11 +16,11 @@ InstallWebServer() {
 	echo -n "Installing PHP and modules... "
 	# Need to check if soemthing is asked before suppress messages
 	# apt_install php7.3 php7.3-common php7.3-gd php7.3-mysql php7.3-imap php7.3-cli php7.3-cgi php-pear  php7.3-curl php7.3-intl php7.3-pspell php7.3-recode php7.3-sqlite3 php7.3-tidy php7.3-xmlrpc php7.3-zip php7.3-mbstring php7.3-imap mcrypt php7.3-snmp php7.3-xmlrpc php7.3-xsl
-	apt_install php7.3 php7.3-common php7.3-gd php7.3-mysql php7.3-imap php7.3-cli php7.3-cgi php-pear  php7.3-curl php7.3-intl php7.3-pspell php7.3-recode php7.3-sqlite3 php7.3-tidy php7.3-xmlrpc php7.3-xsl php7.3-zip php7.3-mbstring php7.3-soap
+	apt_install php7.4 php7.4-common php7.4-gd php7.4-mysql php7.4-imap php7.4-cli php7.4-cgi php-pear  php7.4-curl php7.4-intl php7.4-pspell php7.4-recode php7.4-sqlite3 php7.4-tidy php7.4-xmlrpc php7.4-xsl php7.4-zip php7.4-mbstring php7.4-soap
 	echo -e "[${green}DONE${NC}]\n"
 	echo -n "Installing PHP-FPM... "
 	#Need to check if soemthing is asked before suppress messages
-	apt_install php7.3-fpm
+	apt_install php7.4-fpm
 	#Need to check if soemthing is asked before suppress messages
 	a2enmod actions > /dev/null 2>&1 
 	a2enmod proxy_fcgi > /dev/null 2>&1 
@@ -79,7 +79,7 @@ InstallWebServer() {
 	echo -e "[${green}DONE${NC}]\n"
   
     echo -n "Installing PHP Opcode Cache... "	
-    apt_install php7.3-opcache php-apcu
+    apt_install php7.4-opcache php-apcu
 	echo -e "[${green}DONE${NC}]\n"
 	echo -n "Restarting Apache... "
 	systemctl restart apache2
@@ -92,20 +92,20 @@ InstallWebServer() {
 	apt_install nginx
 	systemctl start nginx  
 	# apt_install php7.3 php7.3-common php-bcmath php7.3-gd php7.3-mysql php7.3-imap php7.3-cli php7.3-cgi php-pear mcrypt php7.3-curl php7.3-intl php7.3-pspell php7.3-recode php7.3-sqlite3 php7.3-tidy php7.3-xmlrpc php7.3-xsl php7.3-zip php7.3-mbstring php7.3-imap mcrypt php7.3-snmp php7.3-xmlrpc php7.3-xsl
-	apt_install php7.3 php7.3-common php-bcmath php7.3-gd php7.3-mysql php7.3-imap php7.3-cli php7.3-cgi php-pear mcrypt libruby php7.3-curl php7.3-intl php7.3-pspell php7.3-recode php7.3-sqlite3 php7.3-tidy php7.3-xmlrpc php7.3-xsl php-memcache php-imagick php-gettext php7.3-zip php7.3-mbstring php7.3-soap php7.3-opcache
+	apt_install php7.4 php7.4-common php-bcmath php7.4-gd php7.4-mysql php7.4-imap php7.4-cli php7.4-cgi php-pear mcrypt libruby php7.4-curl php7.4-intl php7.4-pspell php7.4-recode php7.4-sqlite4 php7.4-tidy php7.4-xmlrpc php7.4-xsl php-memcache php-imagick php-gettext php7.4-zip php7.4-mbstring php7.4-soap php7.4-opcache
 	echo -e "[${green}DONE${NC}]\n"
 	echo -n "Installing PHP-FPM... "
 	#Need to check if something is asked before suppress messages
-	apt_install php7.3-fpm
-	sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.3/fpm/php.ini
+	apt_install php7.4-fpm
+	sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.4/fpm/php.ini
 	TIME_ZONE=$(echo "$TIME_ZONE" | sed -n 's/ (.*)$//p')
-	sed -i "s/;date.timezone =/date.timezone=\"${TIME_ZONE//\//\\/}\"/" /etc/php/7.3/fpm/php.ini
+	sed -i "s/;date.timezone =/date.timezone=\"${TIME_ZONE//\//\\/}\"/" /etc/php/7.4/fpm/php.ini
 	echo -e "[${green}DONE${NC}]\n"
 	echo -n "Installing needed programs for PHP and nginx (mcrypt, etc.)... "
 	apt_install mcrypt imagemagick memcached curl tidy snmp
 	echo -e "[${green}DONE${NC}]\n"
 	echo -n "Reloading PHP-FPM... "
-	systemctl reload php7.3-fpm
+	systemctl reload php7.4-fpm
 	echo -e "[${green}DONE${NC}]\n"
 	echo -n "Installing fcgiwrap... "
 	apt_install fcgiwrap
